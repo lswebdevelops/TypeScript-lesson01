@@ -27,9 +27,6 @@ userName = "John";
 userName = "Amy";
 // userName = 'Luciano' > that is not allowed .
 
-
-
-
 // functions
 const add = (a: number, b: number): number => {
   return a + b;
@@ -62,18 +59,51 @@ let subtract = function (a: number, b: number): number {
 consoleLog(subtract(3, 54)); // -51
 
 type mathFunction = (a: number, b: number) => number;
-// or 
+// or
 // interface mathFunction {
 //     (a: number, b: number):number;
 
 // }
 
-
 let multiply2: mathFunction = function (c, d) {
   return c * d;
 };
 
-logMsg(multiply2(3,4)); // 12
+logMsg(multiply2(3, 4)); // 12
 
+// optional parameters
 
+const addAll = (a: number, b: number, c?: number): number => {
+  if (typeof c !== "undefined") {
+    return a + b + c;
+  }
+  return a + b;
+};
 
+console.log(addAll(2, 3)); // 5
+console.log(addAll(2, 3, 3)); // 8
+
+// default param value 
+const sumAll = (a: number, b: number, c: number=2): number => {
+    
+    return a + b +c
+  };
+  
+
+  console.log(sumAll(2, 3)); // 7  /> because a + b + c is 7
+  console.log(sumAll(2, 3, 2)); // 7
+  
+  // default param value 
+const sumAll_2 = (a: number = 10, b: number, c: number = 2): number => {
+    
+    return a + b +c
+  };
+  
+console.clear();;
+  console.log(sumAll_2(2, 3)); // 7  /> because a + b + c is 7
+  console.log(sumAll_2(2, 3, 2)); // 7
+//   console.log(sumAll_2(3)); this can't be accepted. 
+// instead
+console.log(sumAll_2(undefined, 3)); //15  > a + b + c=> 10 + 3 + 2
+
+  
