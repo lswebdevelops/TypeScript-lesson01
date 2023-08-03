@@ -1,22 +1,27 @@
-let username = 'Davi'
-console.log(username);
+let myName:string = 'Davi'
+
+let meaningOfLife: number;
+let isLoading: boolean;
+let test: any;
 
 
-// let a: number  = 12;
-// let b: number = 6
-// let c :number = 2
 
-// console.log(a / b);
-
-// console.log(c * b);
-// console.log( b + b);
+myName = "Luciano";
+meaningOfLife = 34;
+isLoading = true;
+test = 43;
+test = "3dsfasdf"
 
 
-let a:number = 12;
-let b:number = 6
-let c:number = 2
 
-console.log(a / b);
+const sum =(a:number,b:string) => {
+    return a + b
+}
+// union type: 
+let album : string | number;
+let postId: string | number;
+let isActive: number | boolean | string; //  it could be 1 or 0, or true or false or even S and N or T and F
+// 
+let re : RegExp = /\w+/g;
 
-console.log(c * b);
-console.log( b + b);
+
