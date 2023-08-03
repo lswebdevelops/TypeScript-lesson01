@@ -1,71 +1,40 @@
 "use strict";
-let stringArr = ["one", "hey", "Dave"]; // let stringArr: string[]
-let guitars = ["Strat", "Les Paul", 5150]; // let guitars: (string | number)[]
-let mixedData = ["EVH", 1984, true]; // let mixedData: (string | number | boolean)[]
-stringArr[0] = "Luciano";
-stringArr.push("0");
-guitars.unshift(9);
-console.log(guitars); //[9, 'Strat', 'Les Paul', 5150]
-console.log(stringArr); //['Luciano', 'hey', 'Dave', '0']
-// stringArr = mixedData;
-mixedData = stringArr;
-// creating a any array type:
-let test = [];
-// now a string array
-let bands = [];
-bands.push("Van Halen");
-// tuples
-// here you have to have the exactly order and length:
-let myTuple = ["Dave", 42, true];
-let mixed = ["Dave", 42, true];
-mixed = myTuple; // no problem here
-//myTuple = mixed // not assignable
-myTuple[0] = "Luciano";
-myTuple[2] = false;
-// myTuple[1]  ="2" // cannot be done
-console.log(myTuple); // ['Luciano', 42, false]
-//objects
-let myObj;
-myObj = [];
-console.log(typeof myObj);
-myObj = {};
-const exampleObj = {
-    prop1: "Davi",
-    prop2: true,
+// interface PostId = stringOrNumber; //>> that can't be done using interface
+//literal types
+let nyName;
+let userName;
+userName = "John";
+userName = "Amy";
+// userName = 'Luciano' > that is not allowed .
+// functions
+const add = (a, b) => {
+    return a + b;
 };
-exampleObj.prop2 = false;
-let evh = {
-    name: "Eddie",
-    active: false,
-    albums: [1934, 234, "Ou32"],
+const logMsg = (message) => {
+    console.log(message);
 };
-let JP = {
-    //   name: 'Jimmy',
-    active: true,
-    albums: ["I", "II", "IV"],
+logMsg("Hello");
+logMsg(add(2, 3));
+logMsg("hi");
+const multiply = (a, b) => {
+    return a * b;
 };
-// https://www.youtube.com/watch?v=gieEQFIfgYc&t=17s 1:00:31
-//evh = JP // as soon  they have the same properties ..
-//
-//one property in an object can also be optional > use ?:
-//    active?: boolean,
-// using it in a function
+const consoleLog = (message) => {
+    console.log(message);
+};
 console.clear();
-const greetGuitarist = (guitarist) => {
-    if (guitarist.name) {
-        return `Hello ${guitarist.name.toUpperCase()}!`;
-    }
-    return "Hello!";
+consoleLog("Test");
+consoleLog(multiply(3, 3));
+console.log(add(3, 5));
+let subtract = function (a, b) {
+    return a - b;
 };
-console.log(greetGuitarist(JP)); //Hello!
-console.log(greetGuitarist(evh)); //Hello EDDIE!
-// Enums : enumarated
-var Grade;
-(function (Grade) {
-    Grade[Grade["U"] = 1] = "U";
-    Grade[Grade["D"] = 2] = "D";
-    Grade[Grade["C"] = 3] = "C";
-    Grade[Grade["B"] = 4] = "B";
-    Grade[Grade["A"] = 5] = "A";
-})(Grade || (Grade = {}));
-console.log(Grade.U); // 0
+consoleLog(subtract(3, 54)); // -51
+// or 
+// interface mathFunction {
+//     (a: number, b: number):number;
+// }
+let multiply2 = function (c, d) {
+    return c * d;
+};
+logMsg(multiply2(3, 4)); // 12

@@ -1,109 +1,79 @@
-let stringArr = ["one", "hey", "Dave"]; // let stringArr: string[]
-let guitars = ["Strat", "Les Paul", 5150]; // let guitars: (string | number)[]
-let mixedData = ["EVH", 1984, true]; // let mixedData: (string | number | boolean)[]
+// type aliases
+type stringOrNumber = string | number;
 
-stringArr[0] = "Luciano";
+type stringOrNumberArray = (string | number)[];
 
-stringArr.push("0");
-
-guitars.unshift(9);
-
-console.log(guitars); //[9, 'Strat', 'Les Paul', 5150]
-console.log(stringArr); //['Luciano', 'hey', 'Dave', '0']
-
-// stringArr = mixedData;
-mixedData = stringArr;
-
-// creating a any array type:
-
-let test = [];
-
-// now a string array
-let bands: string[] = [];
-
-bands.push("Van Halen");
-
-// tuples
-// here you have to have the exactly order and length:
-let myTuple: [string, number, boolean] = ["Dave", 42, true];
-
-let mixed = ["Dave", 42, true];
-
-mixed = myTuple; // no problem here
-
-//myTuple = mixed // not assignable
-
-myTuple[0] = "Luciano";
-myTuple[2] = false;
-// myTuple[1]  ="2" // cannot be done
-
-console.log(myTuple); // ['Luciano', 42, false]
-
-//objects
-let myObj: object;
-myObj = [];
-console.log(typeof myObj);
-
-myObj = {};
-
-const exampleObj = {
-  prop1: "Davi",
-  prop2: true,
-};
-
-exampleObj.prop2 = false;
-// exampleObj.prop2 = "Luciano";// can't cause it is boolean
+// type Guitarist = {
+//     name: string;
+//     active: boolean;
+//     albums: (string | number)[];
+//   };
 
 type Guitarist = {
-  // could use interface Guitarist { >>> use interface for classes(is better for classes)
-  // name....
-  //  }
-  name?: string;
+  name: string;
   active: boolean;
-  //one property in an object can also be optional > use ?:
-  //    active?: boolean,
-
-  albums: (string | number)[];
-};
-let evh: Guitarist = {
-  name: "Eddie",
-  active: false,
-  albums: [1934, 234, "Ou32"],
+  albums: stringOrNumberArray;
 };
 
-let JP: Guitarist = {
-//   name: 'Jimmy',
-  active: true,
-  albums: ["I", "II", "IV"],
+type UserId = stringOrNumber;
+// interface PostId = stringOrNumber; //>> that can't be done using interface
+
+//literal types
+
+let nyName: "Dave";
+
+let userName: "Dave" | "John" | "Amy";
+userName = "John";
+userName = "Amy";
+// userName = 'Luciano' > that is not allowed .
+
+
+
+
+// functions
+const add = (a: number, b: number): number => {
+  return a + b;
 };
-// https://www.youtube.com/watch?v=gieEQFIfgYc&t=17s 1:00:31
-//evh = JP // as soon  they have the same properties ..
 
-//
+const logMsg = (message: any) => {
+  console.log(message);
+};
 
-//one property in an object can also be optional > use ?:
-//    active?: boolean,
-// using it in a function
+logMsg("Hello");
+logMsg(add(2, 3));
+logMsg("hi");
+
+const multiply = (a: number, b: number): number => {
+  return a * b;
+};
+
+const consoleLog = (message: any) /* :void > could be added*/ => {
+  console.log(message);
+};
 console.clear();
+consoleLog("Test");
+consoleLog(multiply(3, 3));
+console.log(add(3, 5));
 
-const greetGuitarist = (guitarist: Guitarist) => {
-  if (guitarist.name) {
-    return `Hello ${guitarist.name.toUpperCase()}!`;
-  }
-  return "Hello!";
+let subtract = function (a: number, b: number): number {
+  return a - b;
 };
 
-console.log(greetGuitarist(JP)); //Hello!
+consoleLog(subtract(3, 54)); // -51
 
-console.log(greetGuitarist(evh));//Hello EDDIE!
+type mathFunction = (a: number, b: number) => number;
+// or 
+// interface mathFunction {
+//     (a: number, b: number):number;
 
-// Enums : enumarated
+// }
 
-enum Grade {
-    U =1,
-    D, // 1
-    C, //2
-    B, //3 
-    A,
-}
-console.log(Grade.U); // 0
+
+let multiply2: mathFunction = function (c, d) {
+  return c * d;
+};
+
+logMsg(multiply2(3,4)); // 12
+
+
+
