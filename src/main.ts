@@ -106,4 +106,47 @@ console.clear();;
 // instead
 console.log(sumAll_2(undefined, 3)); //15  > a + b + c=> 10 + 3 + 2
 
+  // rest parameters 
+
+  const total = (...nums: number[]):number => {
+    return nums.reduce((prev, curr) => prev + curr)
+  }
+  console.clear();
+  logMsg(total(1,2,3,4)) //10
   
+  
+  const total_2 = (a: number, ...nums: number[]):number => {
+    return a /* now we add a here */+ nums.reduce((prev, curr) => prev + curr)
+  }
+  logMsg(total_2(1,2,3,4))// 10
+  //never parameter 
+  
+  const createError = (errMsg: string) => {
+      throw new Error(errMsg)
+    }
+    
+      console.clear();
+const infinite = () => {
+    let i: number = 1
+    while(true) {
+        i++
+        if(i> 100) break
+    }
+    
+}
+
+//custom type guard 
+const isNumber = (value: any): boolean => {
+    return typeof value === 'number'
+    ? true: false;
+}
+// user of the never type 
+
+const numberOrString = (value: number | string):string => {
+    if(typeof value === 'string') return 'string';
+    if(typeof value === "number") return 'number';
+    return createError('This should never happen!')
+
+}
+
+console.log(numberOrString(5));// number

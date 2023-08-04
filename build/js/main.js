@@ -64,3 +64,40 @@ console.log(sumAll_2(2, 3, 2)); // 7
 //   console.log(sumAll_2(3)); this can't be accepted. 
 // instead
 console.log(sumAll_2(undefined, 3)); //15  > a + b + c=> 10 + 3 + 2
+// rest parameters 
+const total = (...nums) => {
+    return nums.reduce((prev, curr) => prev + curr);
+};
+console.clear();
+logMsg(total(1, 2, 3, 4)); //10
+const total_2 = (a, ...nums) => {
+    return a /* now we add a here */ + nums.reduce((prev, curr) => prev + curr);
+};
+logMsg(total_2(1, 2, 3, 4)); // 10
+//never parameter 
+const createError = (errMsg) => {
+    throw new Error(errMsg);
+};
+console.clear();
+const infinite = () => {
+    let i = 1;
+    while (true) {
+        i++;
+        if (i > 100)
+            break;
+    }
+};
+//custom type guard 
+const isNumber = (value) => {
+    return typeof value === 'number'
+        ? true : false;
+};
+// user of the never type 
+const numberOrString = (value) => {
+    if (typeof value === 'string')
+        return 'string';
+    if (typeof value === "number")
+        return 'number';
+    return createError('This should never happen!');
+};
+console.log(numberOrString(5)); // number
