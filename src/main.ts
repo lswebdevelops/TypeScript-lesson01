@@ -1,152 +1,44 @@
-// type aliases
-type stringOrNumber = string | number;
+// assertion :
 
-type stringOrNumberArray = (string | number)[];
+type One = string;
+type Two = string | number;
+type Three = "hello";
 
-// type Guitarist = {
-//     name: string;
-//     active: boolean;
-//     albums: (string | number)[];
-//   };
+// convert to more or less specific
+let a: One = "hello";
+let b = a as Two; // less specific type
+let c = a as Three; // more specific
 
-type Guitarist = {
-  name: string;
-  active: boolean;
-  albums: stringOrNumberArray;
+let d = <One>"world"; // cannot be used in react <>  angle brackets
+let e = <string | number>"world";
+
+const addOrConcat = (
+  a: number,
+  b: number,
+  c: "add" | "concat"
+): number | string => {
+  if (c === "add") return a + b;
+  return "" + a + b;
 };
+// we are telling the TS to return a string here
+let myVal: string = addOrConcat(2, 3, "concat") as string;
 
-type UserId = stringOrNumber;
-// interface PostId = stringOrNumber; //>> that can't be done using interface
+let nextVal: number = addOrConcat(2, 2, "concat") as number; // be carefull ts sees no problem - but a string is returned << this is wrong. 
 
-//literal types
+// unkown type 
+// 10 as string >> this is not allowed. be carefull
+(10 as unknown) as string
 
-let nyName: "Dave";
+// where assertions can be very usefull. 
+// the DOM
+const img  = document.querySelector('img')!
+img.src // ! at the end>  using that ts can now know what we are talking : const img: HTMLImageElement
 
-let userName: "Dave" | "John" | "Amy";
-userName = "John";
-userName = "Amy";
-// userName = 'Luciano' > that is not allowed .
 
-// functions
-const add = (a: number, b: number): number => {
-  return a + b;
-};
+const myImg = document.getElementById('#img') as HTMLImageElement;
+myImg.src // const myImg: HTMLImageElement > 
 
-const logMsg = (message: any) => {
-  console.log(message);
-};
 
-logMsg("Hello");
-logMsg(add(2, 3));
-logMsg("hi");
 
-const multiply = (a: number, b: number): number => {
-  return a * b;
-};
 
-const consoleLog = (message: any) /* :void > could be added*/ => {
-  console.log(message);
-};
-console.clear();
-consoleLog("Test");
-consoleLog(multiply(3, 3));
-console.log(add(3, 5));
 
-let subtract = function (a: number, b: number): number {
-  return a - b;
-};
-
-consoleLog(subtract(3, 54)); // -51
-
-type mathFunction = (a: number, b: number) => number;
-// or
-// interface mathFunction {
-//     (a: number, b: number):number;
-
-// }
-
-let multiply2: mathFunction = function (c, d) {
-  return c * d;
-};
-
-logMsg(multiply2(3, 4)); // 12
-
-// optional parameters
-
-const addAll = (a: number, b: number, c?: number): number => {
-  if (typeof c !== "undefined") {
-    return a + b + c;
-  }
-  return a + b;
-};
-
-console.log(addAll(2, 3)); // 5
-console.log(addAll(2, 3, 3)); // 8
-
-// default param value 
-const sumAll = (a: number, b: number, c: number=2): number => {
-    
-    return a + b +c
-  };
-  
-
-  console.log(sumAll(2, 3)); // 7  /> because a + b + c is 7
-  console.log(sumAll(2, 3, 2)); // 7
-  
-  // default param value 
-const sumAll_2 = (a: number = 10, b: number, c: number = 2): number => {
-    
-    return a + b +c
-  };
-  
-console.clear();;
-  console.log(sumAll_2(2, 3)); // 7  /> because a + b + c is 7
-  console.log(sumAll_2(2, 3, 2)); // 7
-//   console.log(sumAll_2(3)); this can't be accepted. 
-// instead
-console.log(sumAll_2(undefined, 3)); //15  > a + b + c=> 10 + 3 + 2
-
-  // rest parameters 
-
-  const total = (...nums: number[]):number => {
-    return nums.reduce((prev, curr) => prev + curr)
-  }
-  console.clear();
-  logMsg(total(1,2,3,4)) //10
-  
-  
-  const total_2 = (a: number, ...nums: number[]):number => {
-    return a /* now we add a here */+ nums.reduce((prev, curr) => prev + curr)
-  }
-  logMsg(total_2(1,2,3,4))// 10
-  //never parameter 
-  
-  const createError = (errMsg: string) => {
-      throw new Error(errMsg)
-    }
-    
-      console.clear();
-const infinite = () => {
-    let i: number = 1
-    while(true) {
-        i++
-        if(i> 100) break
-    }
-    
-}
-
-//custom type guard 
-const isNumber = (value: any): boolean => {
-    return typeof value === 'number'
-    ? true: false;
-}
-// user of the never type 
-
-const numberOrString = (value: number | string):string => {
-    if(typeof value === 'string') return 'string';
-    if(typeof value === "number") return 'number';
-    return createError('This should never happen!')
-
-}
-
-console.log(numberOrString(5));// number
